@@ -1,7 +1,7 @@
-±íÖĞµÄÊı¾İ×îÖÕ´æµ½Õâ¸öÂ·¾¶ÏÂµÄdbfÎÄ¼şÖĞ
+è¡¨ä¸­çš„æ•°æ®æœ€ç»ˆå­˜åˆ°è¿™ä¸ªè·¯å¾„ä¸‹çš„dbfæ–‡ä»¶ä¸­
 	D:\app\Administrator\oradata\orcl 
-°ÑÕâĞ©ÎÄ¼ş¶Ôµ½ÄÚ´æÖĞ¾Í¶ÔÓ¦ÊµÀı
+æŠŠè¿™äº›æ–‡ä»¶å¯¹åˆ°å†…å­˜ä¸­å°±å¯¹åº”å®ä¾‹
 
-	select name from v$database;  --²éÑ¯µ±Ç°Êı¾İ¿âÃû
-	select instance_name from v$instance;   --²éÑ¯µ±Ç°ÊµÀıÃû
-	select * from dba_users;    --²é¿´ÓÃ»§¼°±í¿Õ¼ä¶ÔÓ¦Çé¿ö
+	select name from v$database;  --æŸ¥è¯¢å½“å‰æ•°æ®åº“å
+	select instance_name from v$instance;   --æŸ¥è¯¢å½“å‰å®ä¾‹å
+	select * from dba_users;    --æŸ¥çœ‹ç”¨æˆ·åŠè¡¨ç©ºé—´å¯¹åº”æƒ…å†µ
