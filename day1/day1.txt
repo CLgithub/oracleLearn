@@ -1,0 +1,7 @@
+表中的数据最终存到这个路径下的dbf文件中
+	D:\app\Administrator\oradata\orcl 
+把这些文件对到内存中就对应实例
+
+	select name from v$database;  --查询当前数据库名
+	select instance_name from v$instance;   --查询当前实例名
+	select * from dba_users;    --查看用户及表空间对应情况
