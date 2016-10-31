@@ -18,3 +18,23 @@ from res_object ro,mv_relation mr,fm_alert fa
 where ro.mo_name=fa.moname
   and ro.multiselect_id=mr.relation_id
   group by mr.relation_name;
+
+
+select tt.time_id,avg(值1),avg(值2)
+from(
+  Select 
+    t.time_id
+    ,Case when t.kpi_no= 100002663 then t.avgvalue else null end 值1 --else后不能是0，不然平均就不对，所有不写或为null
+    ,Case when t.kpi_no= 120000093 then t.avgvalue end 值2
+  from (
+    select kpi_no,time_id,round(avg(valueavg),1) avgvalue
+    --Select *
+    from Pm_Hou_p_Reshost 
+      where kpi_No in (100002663,120000093) 
+      and kbp=1411 
+      and time_id >=2013011000 
+      and time_id < 2013011100 
+      group by kpi_no,time_id
+  ) t
+)tt group by tt.time_id
+order by tt.time_id
