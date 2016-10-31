@@ -1,0 +1,20 @@
+--转置
+select decode('34','23','a','34','b','35','c','null') from dual;
+SQLServer中没有decode
+select case '34' 
+    when '23' then 'a'
+    when '34' then 'b'
+    when '25' then 'c'
+    else 'null'
+    end
+from dual;
+
+select mr.relation_name,
+  sum(case when fa.severity=1 then 1 end )f1,
+  sum(case when fa.severity=2 then 1 end )f2,
+  sum(case when fa.severity=3 then 1 end )f3,
+  sum(case when fa.severity=4 then 1 end )f4
+from res_object ro,mv_relation mr,fm_alert fa
+where ro.mo_name=fa.moname
+  and ro.multiselect_id=mr.relation_id
+  group by mr.relation_name;
