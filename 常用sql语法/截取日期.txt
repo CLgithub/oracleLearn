@@ -1,0 +1,8 @@
+--截取日期
+select Sysdate-1  "上一天此天此时此分此秒"
+       ,trunc(Sysdate-1,'hh') "上一天此天此小时"
+       ,trunc(Sysdate-1,'hh24') "上一天此天此小时"
+       ,trunc(Sysdate-1,'dd') "上一天此天"
+       ,trunc(Sysdate-1,'MM') "上一天此月"
+       ,trunc(Sysdate,'yy') "这年"
+from dual;
