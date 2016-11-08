@@ -35,7 +35,43 @@ where c.creator not in('OUTLN','DBSNMP',null)
 --查询有下划线的记录,需要用到转意字符,用转意字符需要声明
 select * from Catalog c
        where c.tname like '%\_%' escape '\'
+
+/*
+where条件优先级
+1.算数运算符
+2.连接符
+3.比较符
+4.IS [NOT] NULL,LIKE,[NOT] IN
+5.[NOT] BETWEEN
+6.NOT
+7.AND
+8.OR
+*/
+
+-------------------------------------------------
 --order by 后面可以跟 列   表达式   别名    列的序号（第几列，不能超）
-select * from Catalog c
-    order by 1
---order by 后也可以有多个列
+
+--按照年薪降序排列
+select e.Ename,e.sal,e.Sal*12 年薪
+from emp e
+order by 年薪 desc;
+--
+select e.Ename,e.sal,e.Sal*12 年薪
+from emp e
+order by 3 desc;
+
+--order by 后也可以有多个列  
+select * 
+from emp e
+order by e.Deptno desc,e.Sal asc        --先安装部门降序，如果部门相同再按照薪水升序
+
+--查询员工信息，按照奖金降序排序
+select e.Empno,e.Ename,e.Sal 月薪,e.comm 奖金,e.Sal*12+nvl(e.comm,0) 年薪
+from emp e
+order by e.Comm desc
+--null的排序， 
+select e.Empno,e.Ename,e.Sal 月薪,e.comm 奖金,e.Sal*12+nvl(e.comm,0) 年薪
+from emp e
+order by e.Comm desc
+nulls last
+--oracle中null最大

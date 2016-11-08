@@ -18,10 +18,12 @@ sql中的null值问题
   1.包含ull的表达式都为null
   2.null永远!=null
   3.如果集合中含有null，使用in,可以正常查出原来数据，使用not in数据就不对
+  4.null的排序，oracle中null最大，所以用nulls last
     
     
 */
 --nvl(a,b) 如果a的值位null时返回b，否则返回a
+--select nvl2('12','a','b') from dual; 如果第一个参数不为null，就显示a，否则就显示b
 select nvl(null,'b') from dual
 --判断null is null,is not null
 select * 
