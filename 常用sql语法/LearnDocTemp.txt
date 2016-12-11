@@ -1,0 +1,17 @@
+数据库（实例）
+
+用户
+
+表管理
+	
+	--给表添加注释
+	comment on table tableName is '表注释'
+
+字段管理
+
+--修改某字段可为空/非空
+alter table 表名 modify 字段名 not null		(modify 修改)
+--给某表某字段添加注释
+comment on column tableName.columnName is '注释'
+	如：comment on column temp.stbid is '机顶盒ID'
+	（comment 评论）
