@@ -19,6 +19,7 @@ sql中的null值问题
   2.null永远!=null
   3.如果集合中含有null，使用in,可以正常查出原来数据，使用not in数据就不对
   4.null的排序，oracle中null最大，所以用nulls last
+  5.组函数（多行函数）会自动滤空
     
     
 */
