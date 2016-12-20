@@ -1,0 +1,85 @@
+一.sql优化原则
+  1.使用列名代替*
+  2.where解析的顺序：oracle是先右后左
+
+二.null问题
+  1.空值是无效的，未指定的未知的或不可预见的值，空值不是空格或0
+  2.包含null的表达式都为null
+  3.null永远不等于null
+  4.如果集合中含有null，那可以使用in，不能使用not in，因为not in是不等于集合中的任何一个，所有与null比较的结果都是false，所以结果为0行
+  5.null的排序，oracle中null最大，所以要使用nulls last，将null放到最后
+  6.组函数（多行函数）会自动滤空，可以嵌套滤空函数来屏蔽滤空功能
+
+三.where条件优先级
+  1.算数运算符
+  2.连接运算符
+  3.比较运算符
+  4.is [not] null,like,[not] in
+  5.[not] between
+  6.not
+  7.and
+  8.or
+
+四.单行函数
+  1.字符函数
+    大upper()小lower()写、首字母大写initcap()
+    截取：substr('abcdefg',3); 从abcdefg中的第3位开始读，cdefg
+    substr('a',2,3) ,从a中第2位开始读，读3位
+    length 字符数，lengthb字节数
+    instr('a','b'),在a中查找b，如果找到返回b的位置（从1开始数），如果没找到，返回0
+    lpad('a',2,'c');在a的左边填充2个c
+    rpad('a',4,'c');在a的右边填充4个c
+    trim 去掉前后指定的字符
+    select trim('*' from 'aaa*bbbcc*c*') from dual;
+    replace 替换
+    select replace('aaa*bbbcc*c*','*','-') from dual;
+  
+  2.数值函数  其实也可以是日期函数，可以用在日期上
+    select round(45.926, 2),round(45.926, 1),round(45.926, 0), 
+      round(45.926, -1) from dual;      --小数点后几位开始四舍五入
+    select trunc(45.926, 2),trunc(45.926, 1),trunc(45.926, 0), 
+      trunc(45.926, -1)  from dual;      --截断
+    select mod(1600, 300) from dual;        --求余
+    round和trunc还可以用来操作日期   
+  
+  3.日期函数
+    mysql中
+      date		yyyyMMdd
+      datetime	yyyyMMdd hh:mm:ss
+    oracle:
+      date=日期+时间  sql plus中默认格式 DD-MON-RR
+    当前时间
+      select sysdate from dual
+    sql plus
+    select to_char(sysdate,'yyyy-MM-dd hh24:mi:ss') from dual;
+    
+    在日期上加上或减去一个数字结果仍然为日期
+	 --在日期上加上或减去一个数字结果仍为日期
+	     --昨天，今天，明天
+	     select sysdate-1 昨天,sysdate 今天,sysdate+1 明天 from dual;
+	     select to_char(sysdate-1,'yyyy-MM-dd') 昨天,to_char(sysdate,'yyyy-MM-dd') 今天,
+	         to_char(sysdate+1,'yyyy-MM-dd') 明天 from dual;
+	 --日期相减
+	     --技术员工的工龄：天 星期 月 年   此时只能算出近似值，通过日期函数能算准
+	     select e.ename,e.hiredate,(sysdate-e.hiredate) 天, (sysdate-e.hiredate)/7 星期,
+	         (sysdate-e.hiredate)/30 月,(sysdate-e.hiredate)/365 年 from emp e;
+	--日期函数
+	 --使用日期函数months_between精确计算月份
+	 select e.ename,e.hiredate,(sysdate-e.hiredate)/30 月,
+	        months_between(sysdate,e.hiredate) 月,
+	        months_between(sysdate,e.hiredate)/12 年 from emp e;
+	 --  add_months 在指定的日期上加上指定的个数月后的日期
+	 select add_months(sysdate, 1) from dual;   --今天1个月以后的日期
+	 select add_months(sysdate, -3) from dual;   --今天3个月以前的日期
+	 -- last_day  日期所在月份的最后一天
+	 select last_day(sysdate) from dual;
+	 -- next_day  从指定的日期开始，算出下一个星期x的日期
+	 select next_day(sysdate,'星期日') from dual; 
+	     --应用，每周一自动备份数据 day4讲
+	 -- round 日期四舍五入
+	 select round(sysdate,'day') from dual;      --截取到天
+	 select round(sysdate,'month') from dual;    --截取到月，天过了当月的一半，就是下一个月
+	 select round(sysdate,'year') from dual;     --截取到年，月过了当年的一半，就是下一年
+	 -- trunc 日期截断
+	 select trunc(sysdate,'year') from dual;
+	 

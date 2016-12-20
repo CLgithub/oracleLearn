@@ -42,7 +42,7 @@ oracle:
   --当前时间
   select sysdate from dual;
   --sql plus 
-  select to_char(sysdate,'yyyy-MM-dd hh24:mm:ss') from dual;
+  select to_char(sysdate,'yyyy-MM-dd hh24:mi:ss') from dual;
   
  --在日期上加上或减去一个数字结果仍为日期
      --昨天，今天，明天
