@@ -15,5 +15,7 @@ extent management local;
 create user user1 identified by 123456 
 default　tablespace mySpace1
 temporary tablespace mySpace1_temp
+--给用户session
+grant connect, resource to user1;
 --删除用户
 drop user user1 cascade;
